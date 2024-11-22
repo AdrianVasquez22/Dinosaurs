@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
@@ -25,7 +26,7 @@ fun DinosaursApp() {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { MarsTopAppBar(scrollBehavior = scrollBehavior) }
+        topBar = { DinosaurTopAppBar(scrollBehavior = scrollBehavior) }
     ) {
         Surface(
             modifier = Modifier
@@ -34,14 +35,16 @@ fun DinosaursApp() {
         ) {
             val dinosaursViewModel: DinosaursViewModel = viewModel()
             HomeScreen(
-                dinosaursUiState = dinosaursViewModel.dinosaursUiState)
+                dinosaursUiState = dinosaursViewModel.dinosaursUiState,
+                retryAction = dinosaursViewModel::getDinosaursPhotos
+            )
         }
     }
 }
 
 @Composable
-fun MarsTopAppBar(scrollBehavior: TopAppBarScrollBehavior, modifier: Modifier = Modifier) {
-    CenterAlignedTopAppBar(
+fun DinosaurTopAppBar(scrollBehavior: TopAppBarScrollBehavior, modifier: Modifier = Modifier) {
+    TopAppBar(
         scrollBehavior = scrollBehavior,
         title = {
             Text(

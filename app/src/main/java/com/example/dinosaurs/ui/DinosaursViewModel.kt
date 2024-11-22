@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 sealed interface DinosaursUiState {
-    data class Success(val photos: DinosaursPhoto) : DinosaursUiState
+    data class Success(val photos: List<DinosaursPhoto>) : DinosaursUiState
     object Error : DinosaursUiState
     object Loading : DinosaursUiState
 }
@@ -27,7 +27,7 @@ class DinosaursViewModel : ViewModel() {
     fun getDinosaursPhotos() {
             viewModelScope.launch {
                 dinosaursUiState = try {
-                    DinosaursUiState.Success(DinosaursApi.retrofitService.getPhotos()[0])
+                    DinosaursUiState.Success(DinosaursApi.retrofitService.getPhotos())
                 }  catch (e: IOException) {
                     DinosaursUiState.Error
                 }

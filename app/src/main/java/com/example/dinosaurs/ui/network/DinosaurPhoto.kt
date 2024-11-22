@@ -5,7 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DinosaursPhoto(
-    val id: String,
+    val name: String,
+    val length: String,
+    val description: String,
     @SerialName(value = "img_src")
     val imgSrc: String
 )
